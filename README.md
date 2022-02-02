@@ -6,22 +6,16 @@
   * Run the program (Example at "Usage Example" section).
   
 
-  ## Usage Example
+  ## Usage Example (Using FireFox Browser)
   
   * Login to Instagram Web.
-  * Press F-12 
-  * Find your csrf_token and sessionid from Instagram Web, you can find them by 
-  * Run the command "python ida_warefare.py --path YS.png --obj -v".
-  * Put the file "code.obj" into your Visual Studio project.
+  * Press F-12 And go to "Storage" Window, and click "Cookies".
+  * Find your csrf_token and sessionid cookies.
 
-<img align="center" src="https://raw.githubusercontent.com/yoavshah/IdaWarfare/master/images/YS_VisualStudio.png" />
+<img align="center" src="https://raw.githubusercontent.com/yoavshah/Insta_followers/master/images/get_csrf_sessionid.png" />
 
-  * Build and open in IDA :)
+  * Run the command "python insta_followers.py --csrf_token (csrf_token_cookie) --sessionid (sessionid_cookie) -v".
+  * Have fun finding the assholes who you follow but won't follow back :)
 
-<img align="center" src="https://raw.githubusercontent.com/yoavshah/IdaWarfare/master/images/YS_IDA.png" />
-
-
-  ## Credits
-  Real thanks for xoreaxeaxeax for the inspiration from his [project](https://github.com/xoreaxeaxeax/REpsych)
 
 
