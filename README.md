@@ -1,5 +1,7 @@
 # Insta_Followers
 
+  ## Insta_Followers is a project to programmatically get who are your followers and who you are following while intersecting the 2 groups.
+
   ## Usage
   
   * Get your csrf_token and your sessionid from Instagram Web.
