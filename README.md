@@ -20,4 +20,7 @@
   * Have fun finding the assholes who you follow but won't follow back :)
 
 
+  ## How does it works?
 
+  * The project queries the Instagram API of getting the account followers and following list.
+  * Then the project intersect both groups and output the results in a file.

@@ -17,10 +17,16 @@ class instagram_user():
         has_next_page = True
         end_cursor = ""
         while has_next_page:
+
+            # Send the web request to get the following accounts.
             data = json.loads(requests.get(INSTA_FOLLOWINGS.format(end_cursor), cookies=self.cookies).text)
+
+            # Parse the results from the web.
             has_next_page = data["data"]["user"]["edge_follow"]["page_info"]["has_next_page"]
             end_cursor = data["data"]["user"]["edge_follow"]["page_info"]["end_cursor"]
             edges = data["data"]["user"]["edge_follow"]["edges"]
+
+            # Iterate over the users and insert them to a list.
             for user in edges:
                 following.append(user["node"]["username"])
 
@@ -32,10 +38,16 @@ class instagram_user():
         has_next_page = True
         end_cursor = ""
         while has_next_page:
+
+            # Send the web request to get the followers accounts.
             data = json.loads(requests.get(INSTA_FOLLOWERS.format(end_cursor), cookies=self.cookies).text)
+
+            # Parse the results from the web.
             has_next_page = data["data"]["user"]["edge_followed_by"]["page_info"]["has_next_page"]
             end_cursor = data["data"]["user"]["edge_followed_by"]["page_info"]["end_cursor"]
             edges = data["data"]["user"]["edge_followed_by"]["edges"]
+
+            # Iterate over the users and insert them to a list.
             for user in edges:
                 followers.append(user["node"]["username"])
 
