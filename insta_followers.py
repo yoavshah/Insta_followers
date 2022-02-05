@@ -3,14 +3,15 @@ import requests
 import argparse
 import logging as log
 
-INSTA_FOLLOWINGS = "https://www.instagram.com/graphql/query/?query_hash=3dec7e2c57367ef3da3d987d89f9dbc8&variables=%7B%22id%22%3A%221557645453%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3a10%2c%22after%22%3a%22{}%22%7d"
-INSTA_FOLLOWERS = "https://www.instagram.com/graphql/query/?query_hash=5aefa9893005572d237da5068082d8d5&variables=%7B%22id%22%3A%221557645453%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A10%2C%22after%22%3A%22{}%22%7D"
+INSTA_FOLLOWINGS = "https://www.instagram.com/graphql/query/?query_hash=3dec7e2c57367ef3da3d987d89f9dbc8&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3a10%2c%22after%22%3a%22{}%22%7d"
+INSTA_FOLLOWERS = "https://www.instagram.com/graphql/query/?query_hash=5aefa9893005572d237da5068082d8d5&variables=%7B%22id%22%3A%22{}%22%2C%22include_reel%22%3Atrue%2C%22fetch_mutual%22%3Afalse%2C%22first%22%3A10%2C%22after%22%3A%22{}%22%7D"
 
 
 class instagram_user():
 
     def __init__(self, csrf_token, sessionid):
         self.cookies = {"csrf_token":csrf_token, "sessionid":sessionid}
+        self.person_id = sessionid.split("%3A")[0]
 
     def get_following(self):
         following = []
@@ -19,7 +20,7 @@ class instagram_user():
         while has_next_page:
 
             # Send the web request to get the following accounts.
-            data = json.loads(requests.get(INSTA_FOLLOWINGS.format(end_cursor), cookies=self.cookies).text)
+            data = json.loads(requests.get(INSTA_FOLLOWINGS.format(self.person_id, end_cursor), cookies=self.cookies).text)
 
             # Parse the results from the web.
             has_next_page = data["data"]["user"]["edge_follow"]["page_info"]["has_next_page"]
@@ -40,7 +41,7 @@ class instagram_user():
         while has_next_page:
 
             # Send the web request to get the followers accounts.
-            data = json.loads(requests.get(INSTA_FOLLOWERS.format(end_cursor), cookies=self.cookies).text)
+            data = json.loads(requests.get(INSTA_FOLLOWERS.format(self.person_id, end_cursor), cookies=self.cookies).text)
 
             # Parse the results from the web.
             has_next_page = data["data"]["user"]["edge_followed_by"]["page_info"]["has_next_page"]
